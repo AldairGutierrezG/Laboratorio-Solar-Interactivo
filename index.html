@@ -166,6 +166,24 @@ margin-top:15px;
 
 .panel{font-size:40px;}
 
+/* FOOTER */
+
+.footer{
+margin-top:40px;
+padding:25px;
+font-size:18px;
+}
+
+.footer a{
+color:white;
+font-weight:bold;
+text-decoration:underline;
+}
+
+.footer a:hover{
+color:yellow;
+}
+
 </style>
 
 </head>
@@ -342,9 +360,7 @@ let irr=500
 
 document.getElementById("irrValor").innerHTML=irr+" W/m²"
 
-let energia=irr*0.45
-
-document.getElementById("energia").innerHTML=energia.toFixed(0)+" W"
+document.getElementById("energia").innerHTML=(irr*0.45).toFixed(0)+" W"
 
 }
 
@@ -394,7 +410,6 @@ document.getElementById("energia").innerHTML=(irr*0.45).toFixed(0)+" W"
 /* CONSTRUCTOR */
 
 let paneles=0
-let potenciaPanel=450
 
 function agregarPanel(){
 
@@ -402,14 +417,16 @@ paneles++
 
 document.getElementById("paneles").innerHTML+="🔳"
 
-document.getElementById("potencia").innerHTML=(paneles*potenciaPanel)+" W"
+document.getElementById("potencia").innerHTML=(paneles*450)+" W"
 
 }
 
 function reset(){
 
 paneles=0
+
 document.getElementById("paneles").innerHTML=""
+
 document.getElementById("potencia").innerHTML="0 W"
 
 }
@@ -451,7 +468,7 @@ document.getElementById("infoComponent").innerHTML=texto
 
 }
 
-/* FLUJO ENERGIA + CARGA BATERIA */
+/* FLUJO + BATERIA + CONSUMO */
 
 function generarEnergia(){
 
@@ -461,32 +478,31 @@ lineas.forEach((id,i)=>{
 setTimeout(()=>{document.getElementById(id).classList.add("activa")},i*400)
 })
 
-setTimeout(()=>{document.getElementById("casa").classList.add("casaActiva")},2500)
+setTimeout(()=>{
+document.getElementById("casa").classList.add("casaActiva")
+},2500)
 
-/* SIMULACION DE CARGA DE BATERIA */
+/* BATERIA */
 
 let carga=0
-
-document.getElementById("carga").style.width="0%"
-document.getElementById("porcentaje").innerHTML="0%"
 
 let intervalo=setInterval(()=>{
 
 if(carga>=100){
-
 clearInterval(intervalo)
-
 }else{
-
 carga+=10
-
 document.getElementById("carga").style.width=carga+"%"
-
 document.getElementById("porcentaje").innerHTML=carga+"%"
-
 }
 
 },400)
+
+/* CONSUMO CASA */
+
+let consumo = Math.floor(Math.random()*1500+1200)
+
+document.getElementById("consumo").innerHTML = consumo + " W"
 
 }
 
@@ -503,7 +519,23 @@ document.getElementById("mensaje").innerHTML="<p class='wrong'>Intenta otra vez 
 
 </script>
 
+<!-- MENSAJE FINAL -->
+
+<div class="footer">
+
+<p>🌞 ¡Gracias por tu visita al Laboratorio Solar!</p>
+
+<p>
+Conoce más sobre nuestra universidad:
+</p>
+
+<p>
+<a href="https://www.utlagunadurango.edu.mx/general-clean-1" target="_blank">
+Universidad Tecnológica de La Laguna Durango
+</a>
+</p>
+
+</div>
+
 </body>
 </html>
-
-¡Gracias por su visita!
